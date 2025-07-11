@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Davlatim & Jannatim</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            background: linear-gradient(to right bottom, #ffdde1, #ee9ca7); /* Soft, warm gradient */
+            color: #333;
+            line-height: 1.6;
+            text-align: center;
+            overflow-x: hidden; /* Prevent horizontal scrolling from animations */
+        }
+
+        /* Falling hearts animation - bonus effect */
+        .heart-fall-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* So they don't interfere with interaction */
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .heart {
+            position: absolute;
+            background-color: #e91e63;
+            transform: rotate(-45deg);
+            animation: fall linear infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background-color: #e91e63;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: 50%;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100px) rotate(-45deg) scale(0.5); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(calc(100vh + 100px)) rotate(-45deg) scale(1); opacity: 0; }
+        }
+
+        /* Site header */
+        .header {
+            background: linear-gradient(to right, #e91e63, #d81b60); /* Gradient header */
+            color: white;
+            padding: 40px 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-family: 'Great Vibes', cursive; /* Elegant font for the title */
+            font-size: 4.5em; /* Very large title */
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
+            animation: fadeInScale 1.5s ease-out forwards;
+            opacity: 0; /* Initially hidden for animation */
+        }
+
+        .header p {
+            font-size: 1.5em;
+            margin-top: 10px;
+            font-weight: 300;
+            animation: fadeInUp 1.8s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.5s;
+        }
+
+        /* Creative countdown timer */
+        .creative-countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+            animation: fadeIn 2s ease-out forwards;
+            opacity: 0;
+            animation-delay: 1s;
+            flex-wrap: wrap; /* For wrapping on mobile */
+        }
+
+        .countdown-item {
+            background: linear-gradient(to right, #f8bbd0, #e91e63); /* Gradient for timer blocks */
+            color: white;
+            border-radius: 15px;
+            padding: 15px 25px;
+            margin: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            min-width: 120px; /* Minimum width for alignment */
+            font-size: 1.6em;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown-item .value {
+            font-size: 2.2em; /* Larger for numbers */
+            font-family: 'Great Vibes', cursive; /* Elegant font for numbers */
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .countdown-item .label {
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 400;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Hero section with image */
+        .hero {
+            padding: 50px 20px;
+            background: linear-gradient(to top, #fffde7, #fce4ec); /* Light gradient background */
+            position: relative;
+            overflow: hidden;
+            display: flex; /* Flexbox for centering and button positioning */
+            flex-direction: column; /* Stack image and buttons vertically */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image-container {
+            position: relative;
+            max-width: 800px;
+            width: 100%; /* Ensure it takes full width within padding */
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+            border: 8px solid #f8bbd0; /* Beautiful frame */
+            transform: rotateZ(0deg); /* Initial state for animation */
+            animation: pulseBorder 3s infinite alternate; /* Pulsing frame */
+        }
+
+        @keyframes pulseBorder {
+            0% { border-color: #f8bbd0; box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25); }
+            100% { border-color: #e91e63; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); }
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            display: block;
+            height: 500px; /* Fixed height for all images */
+            object-fit: cover; /* Crop image */
+            transition: transform 0.6s ease-in-out, filter 0.6s ease-in-out;
+            filter: grayscale(0%); /* Initially no grayscale filter */
+        }
+
+        .hero-image-container img:hover {
+            transform: scale(1.05) rotateZ(1deg);
+            filter: grayscale(10%); /* Slight effect on hover */
+        }
+
+        .image-controls {
+            display: flex;
+            gap: 20px; /* Space between buttons */
+            margin-top: 25px; /* Space above buttons when stacked below image */
+            justify-content: center; /* Center buttons horizontally */
+            width: 100%;
+            max-width: 800px; /* Align with image container max-width */
+        }
+
+        .image-control-button {
+            padding: 15px 25px; /* Larger padding for better touch targets */
+            border: none;
+            background-color: rgba(233, 30, 99, 0.9); /* Semi-transparent pink */
+            color: white;
+            cursor: pointer;
+            border-radius: 50%; /* Make them round */
+            font-size: 1.8em; /* Larger arrow font */
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 60px; /* Fixed width for round button */
+            height: 60px; /* Fixed height for round button */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0; /* Prevent buttons from shrinking */
+        }
+
+        .image-control-button:hover {
+            background-color: #d81b60;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Greetings section */
+        .greetings {
+            padding: 60px 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            background-color: #ffe0b2; /* Soft peach background */
+        }
+
+        .greeting-card {
+            background: linear-gradient(to bottom right, #ffffff, #ffebee); /* Light gradient for cards */
+            border-radius: 20px;
+            padding: 35px;
+            width: calc(33% - 80px); /* 3 columns with large margins */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+            min-width: 320px;
+            text-align: left;
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s ease;
+            border-left: 8px solid #e91e63; /* Bright left border */
+            opacity: 0; /* Initially hidden for animation */
+            transform: translateY(30px);
+            animation: slideInUp 1s ease-out forwards;
+        }
+
+        /* Animation delay for each card */
+        .greeting-card:nth-child(1) { animation-delay: 0.2s; }
+        .greeting-card:nth-child(2) { animation-delay: 0.4s; }
+        .greeting-card:nth-child(3) { animation-delay: 0.6s; }
+        /* If you add more, continue the pattern */
+
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .greeting-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .greeting-card h2 {
+            font-family: 'Great Vibes', cursive;
+            color: #d81b60;
+            font-size: 2.5em;
+            margin-top: 0;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #f8bbd0;
+            padding-bottom: 15px;
+            text-align: center;
+        }
+
+        .greeting-card p {
+            font-size: 1.2em;
+            color: #555;
+            font-weight: 400;
+        }
+
+        /* Site footer */
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            font-size: 1em;
+            margin-top: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Responsive design */
+        @media (max-width: 1024px) {
+            .header h1 {
+                font-size: 3.5em;
+            }
+            .creative-countdown {
+                font-size: 0.9em;
+            }
+            .countdown-item {
+                min-width: 100px;
+            }
+            .countdown-item .value {
+                font-size: 1.8em;
+            }
+            .hero-image-container img {
+                height: 400px;
+            }
+            .greeting-card {
+                width: calc(50% - 60px);
+                min-width: 300px;
+            }
+            .greeting-card h2 {
+                font-size: 2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8em;
+            }
+            .header p {
+                font-size: 1.2em;
+            }
+            .creative-countdown {
+                flex-direction: row; /* Keep in row, but wrap */
+                justify-content: center;
+            }
+            .countdown-item {
+                min-width: 80px;
+                padding: 10px 15px;
+                margin: 5px;
+            }
+            .countdown-item .value {
+                font-size: 1.5em;
+            }
+            .countdown-item .label {
+                font-size: 0.7em;
+            }
+            .hero-image-container img {
+                height: 300px;
+            }
+            .image-control-button {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5em;
+            }
+            .greetings {
+                padding: 40px 10px;
+            }
+            .greeting-card {
+                width: calc(100% - 40px); /* One column */
+                margin: 20px auto;
+                padding: 25px;
+            }
+            .greeting-card h2 {
+                font-size: 2.2em;
+            }
+            .greeting-card p {
+                font-size: 1.1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2em;
+                padding: 0 10px;
+            }
+            .header p {
+                font-size: 1em;
+            }
+            .creative-countdown {
+                font-size: 0.8em;
+            }
+            .countdown-item {
+                min-width: 60px;
+                padding: 8px 10px;
+                margin: 4px;
+            }
+            .countdown-item .value {
+                font-size: 1.2em;
+            }
+            .countdown-item .label {
+                font-size: 0.6em;
+            }
+            .hero-image-container img {
+                height: 220px;
+            }
+            .image-control-button {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3em;
+            }
+            .image-controls {
+                gap: 15px;
+            }
+            .greeting-card {
+                min-width: auto;
+                width: calc(100% - 30px);
+            }
+            .greeting-card h2 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-fall-container" id="heart-fall-container"></div>
+
+    <header class="header">
+        <h1>Davlatim & Jannatim</h1>
+        <p>Turmush qurganlaringni 25 yilligi bilan farzandlaringiz nomidan tabriklaymiz!</p>
+        <div class="creative-countdown" id="creative-countdown">
+            <div class="countdown-item">
+                <div class="value" id="years">00</div>
+                <div class="label">Yil</div>
+            </div>
+            <div class="countdown-item">
+                <div class="value" id="days">00</div>
+                <div class="label">Kun</div>
+            </div>
+            <div class="countdown-item">
+                <div class="value" id="hours">00</div>
+                <div class="label">Soat</div>
+            </div>
+            <div class="countdown-item">
+                <div class="value" id="minutes">00</div>
+                <div class="label">Daqiqa</div>
+            </div>
+            <div class="countdown-item">
+                <div class="value" id="seconds">00</div>
+                <div class="label">Soniya</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-image-container">
+            <img src="https://via.placeholder.com/800x500/e91e63/ffffff?text=To%27y+Rasmi" alt="Vasha svadba" id="main-image">
+        </div>
+        <div class="image-controls">
+            <button id="prev-image" class="image-control-button">←</button>
+            <button id="next-image" class="image-control-button">→</button>
+        </div>
+    </section>
+
+    <section class="greetings">
+        <div class="greeting-card">
+            <h2>Qadrli Onajonim va Otajonim!</h2>
+            <p>Sizlarning **25-yillik baxtli hayotingiz** bilan chin dildan tabriklaymiz! Oila rishtalarining mustahkamligi va abadiy muhabbat timsoli bo‘lganingiz uchun sizga minnatdorchilik bildiramiz. Doimo birga, baxtli va sog‘-salomat yashang!</p>
+        </div>
+        <div class="greeting-card">
+            <h2>Mehrli Onajonim va Otajonim!</h2>
+            <p>Bu yubiley sana bilan sizlarni tabriklashdan bag‘oyat xursandmiz. Sizning **sevgining har bir kuni** biz uchun bebaho. Hayotingiz quvonchli lahzalar, xotirjamlik va o‘zgarmas baxtga to‘la bo‘lsin. Siz borligingiz uchun rahmat!</p>
+        </div>
+        <div class="greeting-card">
+            <h2>Jonajon Davlatim va Jannatim!</h2>
+            <p>Sizning **25 yillik to‘yingiz** bilan tabriklaymiz! Sizning muhabbatingiz va ahilligingiz bizga doimo namuna bo‘lgan. Kelajakda ham shunday quvonchli va fayzli kunlar ko‘p bo‘lsin. Sizni cheksiz sevamiz!</p>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; <span id="year"></span> Bizning eng yaxshi ota-onamiz uchun cheksiz muhabbat bilan yaratildi!</p>
+    </footer>
+
+    <script>
+        // JavaScript code
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearSpan = document.getElementById('year');
+            const mainImage = document.getElementById('main-image');
+            const prevButton = document.getElementById('prev-image');
+            const nextButton = document.getElementById('next-image');
+            const heartFallContainer = document.getElementById('heart-fall-container');
+
+            // Timer elements
+            const yearsSpan = document.getElementById('years');
+            const daysSpan = document.getElementById('days');
+            const hoursSpan = document.getElementById('hours');
+            const minutesSpan = document.getElementById('minutes');
+            const secondsSpan = document.getElementById('seconds');
+
+            // --- IMPORTANT: SPECIFY YOUR PARENTS' WEDDING DATE HERE! ---
+            // Format: 'Year-Month-DayTHour:Minute:Second'
+            // For example: '1975-07-11T12:00:00' for July 11, 1975, 12:00 PM
+            const weddingDate = new Date('2000-07-01T12:00:00').getTime(); // Replace with the actual wedding date!
+
+            // Replace these links with your actual images!
+            // Use high-quality photos for the best effect.
+            // If photos are local, specify the path: 'images/photo1.jpg'
+            const images = [
+                'photo/SAM_0027.JPG', // For example, wedding photo
+                'photo/SAM_003220.JPG', // Photo of them young
+                'https://via.placeholder.com/800x500/ad1457/ffffff?text=Oila+Arxivi', // Family photo
+                'https://via.placeholder.com/800x500/880e4f/ffffff?text=So%27nggi+Yillar' // Modern photo
+            ];
+            let currentImageIndex = 0;
+
+            // Set the current year in the footer
+            if (yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
+
+            // Set the first image
+            if (mainImage && images.length > 0) {
+                mainImage.src = images[currentImageIndex];
+            }
+
+            // Function to update the image
+            function updateImage() {
+                if (mainImage) {
+                    mainImage.src = images[currentImageIndex];
+                }
+            }
+
+            // "Previous" button handler
+            if (prevButton) {
+                prevButton.addEventListener('click', () => {
+                    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                    updateImage();
+                });
+            }
+
+            // "Next" button handler
+            if (nextButton) {
+                nextButton.addEventListener('click', () => {
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    updateImage();
+                });
+            }
+            
+            // Function to update the timer
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = now - weddingDate; // Difference in milliseconds (how much time has passed since the wedding date)
+
+                // If the wedding date is in the future (incorrectly specified or it's a countdown TO)
+                if (distance < 0) {
+                    document.getElementById('creative-countdown').innerHTML = "<div class='countdown-item'><div class='value'>Tez+Kunda!</div><div class='label'>To'y!</div></div>";
+                    return;
+                }
+
+                const msInSecond = 1000;
+                const msInMinute = msInSecond * 60;
+                const msInHour = msInMinute * 60;
+                const msInDay = msInHour * 24;
+                const msInYear = msInDay * 365.25; // Account for leap years for accuracy
+
+                const years = Math.floor(distance / msInYear);
+                const remainingDistanceAfterYears = distance % msInYear;
+                const days = Math.floor(remainingDistanceAfterYears / msInDay);
+                const remainingDistanceAfterDays = remainingDistanceAfterYears % msInDay;
+                const hours = Math.floor(remainingDistanceAfterDays / msInHour);
+                const remainingDistanceAfterHours = remainingDistanceAfterDays % msInHour;
+                const minutes = Math.floor(remainingDistanceAfterHours / msInMinute);
+                const seconds = Math.floor((remainingDistanceAfterHours % msInMinute) / msInSecond);
+
+                yearsSpan.textContent = String(years).padStart(2, '0');
+                daysSpan.textContent = String(days).padStart(2, '0');
+                hoursSpan.textContent = String(hours).padStart(2, '0');
+                minutesSpan.textContent = String(minutes).padStart(2, '0');
+                secondsSpan.textContent = String(seconds).padStart(2, '0');
+            }
+
+            // Start the timer immediately and update every second
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // Falling hearts generator
+            function createHeart() {
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heartFallContainer.appendChild(heart);
+
+                const size = Math.random() * 20 + 10; // Size from 10px to 30px
+                heart.style.width = `${size}px`;
+                heart.style.height = `${size}px`;
+                heart.style.left = `${Math.random() * 100}vw`; // Random horizontal position
+
+                const duration = Math.random() * 5 + 5; // Fall duration from 5 to 10 seconds
+                heart.style.animationDuration = `${duration}s`;
+                heart.style.animationDelay = `${Math.random() * 2}s`; // Random delay
+
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000); // Remove heart after animation ends
+            }
+
+            // Start generating hearts every 200ms
+            setInterval(createHeart, 200);
+        });
+    </script>
+</body>
+</html>
