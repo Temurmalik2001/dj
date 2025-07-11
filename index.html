@@ -75,7 +75,7 @@
         .header h1 {
             margin: 0;
             font-family: 'Great Vibes', cursive; /* Elegant font for the title */
-            font-size: 4.5em; /* Very large title */
+            font-size: 6em; /* O'zgartirildi: Bu yozuvni kattalashtiradi */
             letter-spacing: 3px;
             text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
             animation: fadeInScale 1.5s ease-out forwards;
@@ -306,7 +306,7 @@
         /* Responsive design */
         @media (max-width: 1024px) {
             .header h1 {
-                font-size: 3.5em;
+                font-size: 4.5em; /* O'zgartirildi: Planshetlar uchun */
             }
             .creative-countdown {
                 font-size: 0.9em;
@@ -331,7 +331,7 @@
 
         @media (max-width: 768px) {
             .header h1 {
-                font-size: 2.8em;
+                font-size: 3.5em; /* O'zgartirildi: Kichik planshetlar va katta telefonlar uchun */
             }
             .header p {
                 font-size: 1.2em;
@@ -377,7 +377,7 @@
 
         @media (max-width: 480px) {
             .header h1 {
-                font-size: 2em;
+                font-size: 2.8em; /* O'zgartirildi: Telefonlar uchun */
                 padding: 0 10px;
             }
             .header p {
@@ -450,7 +450,7 @@
 
     <section class="hero">
         <div class="hero-image-container">
-            <img src="https://via.placeholder.com/800x500/e91e63/ffffff?text=To%27y+Rasmi" alt="Vasha svadba" id="main-image">
+            <img src="rasm1.jpg" alt="To'y Rasmi" id="main-image">
         </div>
         <div class="image-controls">
             <button id="prev-image" class="image-control-button">←</button>
@@ -498,12 +498,13 @@
             // For example: '1975-07-11T12:00:00' for July 11, 1975, 12:00 PM
             const weddingDate = new Date('2000-07-01T12:00:00').getTime(); // Replace with the actual wedding date!
 
-            // Replace these links with your actual images!
-            // Use high-quality photos for the best effect.
-            // If photos are local, specify the path: 'images/photo1.jpg'
+            // Rasmlarning manzili. Agar rasmlar HTML fayl bilan bir papkada bo'lsa, nomini yozing.
+            // Agar "images" nomli papkada bo'lsa, "images/rasm1.jpg" kabi yozing.
             const images = [
-                'image/SAM_0027.JPG', // For example, wedding photo
-                'image/SAM_003220.JPG', // Photo of them young
+                'rasm1.jpg', // Misol uchun, to'y rasmi
+                'rasm2.jpg', // Yosh ota-ona rasmi
+                'rasm3.jpg', // Oila arxivi rasmi
+                'rasm4.jpg'  // Eng so'nggi rasm
             ];
             let currentImageIndex = 0;
 
